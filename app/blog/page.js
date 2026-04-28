@@ -1,7 +1,9 @@
-// app/blog/page.js — Blog Listing Page (Server Component)
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
 import { getAllBlogs, getAllCategories, getBlogsByCategory } from "@/lib/blog";
+import { client } from "@/sanity/lib/client";
+import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
+import { PortableText } from "@portabletext/react";
 
 export const metadata = {
   title: "All Essays — The Margin",
@@ -31,15 +33,19 @@ const categoryOutlineColors = {
 };
 
 export default async function BlogPage({ searchParams }) {
-  const selectedCategory = searchParams?.category ?? "All";
+  const selectedCategory = (await searchParams?.category) ?? "All";
   const [categories, blogs] = await Promise.all([
     getAllCategories(),
     getBlogsByCategory(selectedCategory),
   ]);
 
+  const posts = await client.fetch(POSTS_QUERY);
+  const post = await client.fetch(POST_QUERY, { slug: "my-first-blog" });
+
   return (
     <>
       <main>
+        <PortableText value={post.body} />
         {/* ─── PAGE HEADER ─── */}
         <section className="bg-cream-50 border-b border-cream-200">
           <div className="container mx-auto px-6 max-w-7xl py-14 md:py-18">
@@ -61,7 +67,7 @@ export default async function BlogPage({ searchParams }) {
                 )}
               </h1>
               <p className="font-body text-ink-400 leading-relaxed">
-                {blogs.length} essay{blogs.length !== 1 ? "s" : ""}{" "}
+                {posts.length} essay{posts.length !== 1 ? "s" : ""}{" "}
                 {selectedCategory !== "All"
                   ? `on ${selectedCategory.toLowerCase()}`
                   : "in the archive"}
@@ -105,26 +111,26 @@ export default async function BlogPage({ searchParams }) {
 
         {/* ─── BLOG GRID ─── */}
         <section className="container mx-auto px-6 max-w-7xl py-12 md:py-16">
-          {blogs.length === 0 ? (
+          {posts.length === 0 ? (
             <div className="text-center py-24">
               <p className="font-display text-2xl text-ink-400 italic mb-4">
-                No essays in this category yet.
+                No blogs in this category yet.
               </p>
               <Link href="/blog" className="btn-outline">
-                View all essays
+                View all blogs
               </Link>
             </div>
           ) : (
             <>
               {/* Featured first card (larger) */}
-              {selectedCategory === "All" && blogs.length > 0 && (
+              {selectedCategory === "All" && posts.length > 0 && (
                 <div className="mb-8">
-                  <BlogCard blog={blogs[0]} featured={true} />
+                  <BlogCard blog={posts[0]} featured={true} />
                 </div>
               )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(selectedCategory === "All" ? blogs.slice(1) : blogs).map(
+                {(selectedCategory === "All" ? posts.slice(1) : posts).map(
                   (blog) => (
                     <BlogCard key={blog.slug} blog={blog} />
                   ),

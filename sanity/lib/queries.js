@@ -1,0 +1,27 @@
+export const POSTS_QUERY = `*[_type == "post" && defined(slug.current)][0...12]{
+  _id,
+  title,
+  "slug": slug.current,
+  "date": publishedAt,
+  "image": image.asset->url,
+  "alt": image.alt,
+  excerpt,
+  "categories": categories[]->title,
+  "author": author->name,
+  featured
+}`;
+
+export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  title,
+  "slug": slug.current,
+  "date": publishedAt,
+  "image": image.asset->url,
+  "alt": image.alt,
+  body,
+  "categories": categories[]->title,
+  "author": { "name": author->name,
+              "image": author->image.asset->url  ,
+              "bio": author->bio
+            },
+  featured
+}`;

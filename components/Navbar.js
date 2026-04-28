@@ -1,14 +1,12 @@
 // components/Navbar.js — Server Component
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Navbar() {
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/blog', label: 'All Essays' },
-    { href: '/blog?category=Travel', label: 'Travel' },
-    { href: '/blog?category=Design', label: 'Design' },
-    { href: '/blog?category=Culture', label: 'Culture' },
-  ]
+    { href: "/", label: "Home" },
+    { href: "/blog", label: "Blogs" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   return (
     <header className="sticky top-0 z-50 bg-cream-100/95 backdrop-blur-sm border-b border-cream-300">
@@ -33,7 +31,7 @@ export default function Navbar() {
               </svg>
             </span>
             <span className="font-display font-bold text-xl text-ink-700 group-hover:text-forest-600 transition-colors">
-              The Margin
+              Blog World
             </span>
           </Link>
 
@@ -51,13 +49,6 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* CTA */}
-          <div className="hidden md:block">
-            <Link href="/blog" className="btn-primary text-xs py-2 px-4">
-              Subscribe
-            </Link>
-          </div>
-
           {/* Mobile menu icon (static — no JS) */}
           <div className="md:hidden flex items-center gap-2">
             <Link
@@ -70,5 +61,5 @@ export default function Navbar() {
         </nav>
       </div>
     </header>
-  )
+  );
 }

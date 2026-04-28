@@ -1,20 +1,20 @@
-// components/BlogCard.js — Reusable Server Component
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
+import { formatDate } from "@/lib/helper";
 
 const categoryColors = {
-  Travel: 'bg-amber-100 text-amber-800 border-amber-300',
-  Design: 'bg-blue-100 text-blue-800 border-blue-300',
-  Food: 'bg-orange-100 text-orange-800 border-orange-300',
-  Culture: 'bg-purple-100 text-purple-800 border-purple-300',
-  Writing: 'bg-teal-100 text-teal-800 border-teal-300',
-}
+  Travel: "bg-amber-100 text-amber-800 border-amber-300",
+  Design: "bg-blue-100 text-blue-800 border-blue-300",
+  Food: "bg-orange-100 text-orange-800 border-orange-300",
+  Culture: "bg-purple-100 text-purple-800 border-purple-300",
+  Writing: "bg-teal-100 text-teal-800 border-teal-300",
+};
 
-const defaultColor = 'bg-forest-100 text-forest-700 border-forest-300'
+const defaultColor = "bg-forest-100 text-forest-700 border-forest-300";
 
 export default function BlogCard({ blog, featured = false }) {
-  const { title, image, date, excerpt, category, author, slug } = blog
-  const colorClass = categoryColors[category] ?? defaultColor
+  const { title, image, date, excerpt, category, author, slug, alt } = blog;
+  const colorClass = categoryColors[category] ?? defaultColor;
 
   if (featured) {
     return (
@@ -23,7 +23,7 @@ export default function BlogCard({ blog, featured = false }) {
         <div className="relative md:w-1/2 h-64 md:h-auto overflow-hidden flex-shrink-0">
           <Image
             src={image}
-            alt={title}
+            alt={alt}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
@@ -54,21 +54,31 @@ export default function BlogCard({ blog, featured = false }) {
                 </span>
               </div>
               <div>
-                <p className="font-sans text-xs font-medium text-ink-600">{author}</p>
-                <p className="font-sans text-xs text-ink-300">{date}</p>
+                <p className="font-sans text-xs font-medium text-ink-600">
+                  {author}
+                </p>
+                <p className="font-sans text-xs text-ink-300">
+                  {formatDate(date)}
+                </p>
               </div>
             </div>
 
             <Link href={`/blog/${slug}`} className="btn-primary">
-              Read Essay
+              Read More
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </Link>
           </div>
         </div>
       </article>
-    )
+    );
   }
 
   return (
@@ -83,7 +93,9 @@ export default function BlogCard({ blog, featured = false }) {
         />
         {/* Category overlay */}
         <div className="absolute top-4 left-4">
-          <span className={`tag-pill ${colorClass} backdrop-blur-sm bg-opacity-90`}>
+          <span
+            className={`tag-pill ${colorClass} backdrop-blur-sm bg-opacity-90`}
+          >
             {category}
           </span>
         </div>
@@ -139,5 +151,5 @@ export default function BlogCard({ blog, featured = false }) {
         </div>
       </div>
     </article>
-  )
+  );
 }
