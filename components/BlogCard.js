@@ -87,7 +87,7 @@ export default function BlogCard({ blog, featured = false }) {
       <div className="relative h-52 overflow-hidden flex-shrink-0">
         <Image
           src={image}
-          alt={title}
+          alt={alt}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-700"
         />
@@ -112,7 +112,9 @@ export default function BlogCard({ blog, featured = false }) {
           </div>
           <span className="font-sans text-xs text-ink-400">{author}</span>
           <span className="text-ink-300">·</span>
-          <span className="font-sans text-xs text-ink-300">{date}</span>
+          <span className="font-sans text-xs text-ink-300">
+            {formatDate(date)}
+          </span>
         </div>
 
         {/* Title */}

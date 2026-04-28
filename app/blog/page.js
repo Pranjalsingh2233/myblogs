@@ -45,7 +45,6 @@ export default async function BlogPage({ searchParams }) {
   return (
     <>
       <main>
-        <PortableText value={post.body} />
         {/* ─── PAGE HEADER ─── */}
         <section className="bg-cream-50 border-b border-cream-200">
           <div className="container mx-auto px-6 max-w-7xl py-14 md:py-18">
