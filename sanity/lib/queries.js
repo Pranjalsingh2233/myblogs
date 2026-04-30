@@ -25,3 +25,8 @@ export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
             },
   featured
 }`;
+
+export const CATEGORIES_QUERY = `*[_type == "category"]{
+  title,
+  "slug": slug.current
+}`;

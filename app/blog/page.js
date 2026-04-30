@@ -1,7 +1,7 @@
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
 import { client } from "@/sanity/lib/client";
-import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
+import { POSTS_QUERY } from "@/sanity/lib/queries";
 
 export const metadata = {
   title: "All Essays — The Margin",
@@ -12,7 +12,6 @@ export default async function BlogPage({ searchParams }) {
   // const selectedCategory = (await searchParams?.category);
 
   const posts = await client.fetch(POSTS_QUERY);
-  const post = await client.fetch(POST_QUERY, { slug: "my-first-blog" });
 
   return (
     <>
