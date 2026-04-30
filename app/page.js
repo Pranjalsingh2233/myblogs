@@ -1,18 +1,19 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import BlogCard from '@/components/BlogCard'
-import { getLatestBlogs, getAllBlogs } from '@/lib/blog'
+import Link from "next/link";
+import Image from "next/image";
+import BlogCard from "@/components/BlogCard";
+import { POSTS_QUERY } from "@/sanity/lib/queries";
+import { client } from "@/sanity/lib/client";
 
 export const metadata = {
-  title: 'The Margin — A Journal of Curious Minds',
+  title: "The Margin — A Journal of Curious Minds",
   description:
-    'Essays on travel, design, food, culture, and the art of paying attention.',
-}
+    "Essays on travel, design, food, culture, and the art of paying attention.",
+};
 
 export default async function HomePage() {
-  const latestBlogs = await getLatestBlogs(6)
-  const featuredBlog = latestBlogs[0]
-  const gridBlogs = latestBlogs.slice(1)
+  const posts = await client.fetch(POSTS_QUERY);
+  const featuredBlog = posts[0];
+  const gridBlogs = posts.slice(1);
 
   return (
     <>
@@ -24,7 +25,7 @@ export default async function HomePage() {
             className="absolute inset-0 opacity-5"
             style={{
               backgroundImage:
-                'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+                "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
             }}
           />
 
@@ -40,9 +41,9 @@ export default async function HomePage() {
 
               {/* Headline */}
               <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.05] text-cream-100 mb-6 text-balance">
-                Essays at{' '}
-                <span className="italic text-forest-300">the edge</span>{' '}
-                of attention
+                Essays at{" "}
+                <span className="italic text-forest-300">the edge</span> of
+                attention
               </h1>
 
               <p className="font-body text-lg md:text-xl text-cream-300 leading-relaxed mb-10 max-w-xl">
@@ -52,7 +53,10 @@ export default async function HomePage() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <Link href="/blog" className="btn-primary bg-cream-100 text-forest-800 hover:bg-cream-200 px-7 py-3 text-sm">
+                <Link
+                  href="/blog"
+                  className="btn-primary bg-cream-100 text-forest-800 hover:bg-cream-200 px-7 py-3 text-sm"
+                >
                   Explore all essays
                 </Link>
                 <Link
@@ -61,7 +65,13 @@ export default async function HomePage() {
                 >
                   Read the latest
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M8.5 4L13 8l-4.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path
+                      d="M3 8h10M8.5 4L13 8l-4.5 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </Link>
               </div>
@@ -70,9 +80,9 @@ export default async function HomePage() {
             {/* Stats row */}
             <div className="mt-16 pt-8 border-t border-forest-700 flex flex-wrap gap-8">
               {[
-                { value: '6', label: 'Essays published' },
-                { value: '5', label: 'Topics covered' },
-                { value: '3', label: 'Contributing writers' },
+                { value: "6", label: "Essays published" },
+                { value: "5", label: "Topics covered" },
+                { value: "3", label: "Contributing writers" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <p className="font-display text-3xl font-bold text-cream-100">
@@ -104,7 +114,13 @@ export default async function HomePage() {
             >
               View all
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </Link>
           </div>
@@ -130,7 +146,13 @@ export default async function HomePage() {
               >
                 All essays
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </Link>
             </div>
@@ -173,5 +195,5 @@ export default async function HomePage() {
         </section>
       </main>
     </>
-  )
+  );
 }
