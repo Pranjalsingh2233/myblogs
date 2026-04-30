@@ -3,7 +3,6 @@ import BlogCard from "@/components/BlogCard";
 import { getAllBlogs, getAllCategories, getBlogsByCategory } from "@/lib/blog";
 import { client } from "@/sanity/lib/client";
 import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
-import { PortableText } from "@portabletext/react";
 
 export const metadata = {
   title: "All Essays — The Margin",

@@ -1,6 +1,9 @@
 import { User } from "lucide-react";
 import { notFound } from "next/navigation";
+import { client } from "@/sanity/lib/client";
 import { POST_QUERY } from "@/sanity/lib/queries";
+import { components, formatDate } from "@/lib/helper";
+import { PortableText } from "@portabletext/react";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -17,7 +20,7 @@ export async function generateMetadata({ params }) {
     title: post.title,
     description: post.excerpt,
     alternates: {
-      canonical: `https://bizzbuzzcreations.com/blog/${slug}`,
+      canonical: `https://example.com/blog/${slug}`,
     },
     openGraph: {
       title: post.title,
@@ -47,45 +50,32 @@ export default async function SingleBlog({ params }) {
     return notFound();
   }
 
-  const featuredImage = post?.yoast_head_json?.og_image?.[0]?.url;
-
-  const formattedDate = new Date(post?.date).toLocaleDateString("en-IN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
-  const filteredData = post?.content.rendered.replaceAll(
-    "https://blog.bizzbuzzcreations.com",
-    "https://bizzbuzzcreations.com",
-  );
+  const featuredImage = post.image;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-40 lg:flex gap-5">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="py-8">
-          <h1
-            className="md:text-3xl xl:text-4xl text-2xl font-bold mb-4 font-bold mb-2"
-            dangerouslySetInnerHTML={{ __html: post?.title?.rendered }}
-          />
+          <h1 className="md:text-3xl xl:text-4xl text-2xl font-bold mb-4 font-bold mb-2">
+            {post.title}
+          </h1>
           <p className="text-gray-500 text-sm">
-            Published on <time dateTime={post?.date}>{formattedDate}</time>
+            Published on {formatDate(post.date)}
           </p>
         </div>
         {/* Featured Image */}
         {featuredImage && (
           <img
             src={featuredImage}
-            alt={post?.title?.rendered}
+            alt={post?.alt}
             className="w-full h-auto mb-8 rounded-lg"
           />
         )}
         {/* Content */}
-        <div
-          className="article"
-          dangerouslySetInnerHTML={{ __html: filteredData }}
-        />
+        <div className="article">
+          <PortableText value={post.body} components={components} />
+        </div>
         <div className="my-12 p-6 border border-gray-200 rounded-2xl bg-white shadow-md hover:shadow-lg transition duration-300">
           <div className="flex items-center gap-4 mb-4">
             {/* Avatar */}
@@ -97,18 +87,17 @@ export default async function SingleBlog({ params }) {
             <div>
               <p className="text-sm text-gray-500">Written by</p>
               <p className="text-lg font-semibold text-gray-900">
-                {post?.yoast_head_json?.author}
+                {post?.author.name}
               </p>
             </div>
           </div>
 
           {/* Author Bio */}
           <p className="text-gray-600 leading-relaxed text-sm">
-            {post?.yoast_head_json?.schema?.["@graph"]?.[6]?.description}
+            {post.author.bio}
           </p>
         </div>
       </div>
-      <CommentSidebar slug={slug} />
     </div>
   );
 }
