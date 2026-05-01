@@ -1,7 +1,13 @@
+"use server";
+
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 export const submitForm = async (form) => {
+  if (!form.email || !form.message) {
+    return { error: "Invalid input" };
+  }
+
   try {
     const { data, error } = await resend.emails.send({
       from: "Query from my blog site <onboarding@resend.dev>",
@@ -14,11 +20,11 @@ export const submitForm = async (form) => {
     });
 
     if (error) {
-      return Response.json({ error }, { status: 500 });
+      return error;
     }
 
-    return Response.json(data);
+    return data;
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    return error;
   }
 };

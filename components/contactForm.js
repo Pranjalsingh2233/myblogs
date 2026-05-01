@@ -67,7 +67,7 @@ export default function ContactForm() {
     if (!validate()) return;
     setLoading(true);
 
-    const reponse = await submitForm(form);
+    const response = await submitForm(form);
 
     await new Promise((r) => setTimeout(r, 1000));
     setLoading(false);
