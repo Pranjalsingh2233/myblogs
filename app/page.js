@@ -35,21 +35,20 @@ export default async function HomePage() {
               <div className="flex items-center gap-3 mb-8">
                 <div className="h-px w-12 bg-forest-400" />
                 <span className="font-sans text-xs uppercase tracking-widest text-forest-300 font-medium">
-                  Est. 2024 · A thoughtful journal
+                  Build Smarter. Learn Faster. Stay Ahead.
                 </span>
               </div>
 
               {/* Headline */}
               <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.05] text-cream-100 mb-6 text-balance">
-                Essays at{" "}
+                Blogs at{" "}
                 <span className="italic text-forest-300">the edge</span> of
                 attention
               </h1>
 
               <p className="font-body text-lg md:text-xl text-cream-300 leading-relaxed mb-10 max-w-xl">
-                A carefully curated journal exploring travel, design, food,
-                culture, and the craft of writing — for those who still believe
-                in the long read.
+                Discover insights on web development, AI, and modern tech
+                trends—crafted for developers who want to grow.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -57,7 +56,7 @@ export default async function HomePage() {
                   href="/blog"
                   className="btn-primary bg-cream-100 text-forest-800 hover:bg-cream-200 px-7 py-3 text-sm"
                 >
-                  Explore all essays
+                  Explore all blogs
                 </Link>
                 <Link
                   href={`/blog/${featuredBlog.slug}`}
@@ -102,7 +101,7 @@ export default async function HomePage() {
           <div className="flex items-center justify-between mb-10">
             <div>
               <h2 className="font-display text-3xl font-bold text-ink-700">
-                Featured Essay
+                Featured Blogs
               </h2>
               <p className="font-body text-sm text-ink-300 mt-1">
                 Our editors' pick of the moment
@@ -134,7 +133,7 @@ export default async function HomePage() {
             <div className="flex items-center justify-between mb-10">
               <div>
                 <h2 className="font-display text-3xl font-bold text-ink-700">
-                  Latest Essays
+                  Latest Blogs
                 </h2>
                 <p className="font-body text-sm text-ink-300 mt-1">
                   Fresh perspectives, thoughtfully written
@@ -144,7 +143,7 @@ export default async function HomePage() {
                 href="/blog"
                 className="hidden md:inline-flex items-center gap-2 font-sans text-sm text-forest-600 hover:text-forest-700 font-medium transition-colors"
               >
-                All essays
+                All blogs
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path
                     d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"
@@ -165,7 +164,7 @@ export default async function HomePage() {
 
             <div className="mt-12 text-center">
               <Link href="/blog" className="btn-outline">
-                Read all essays
+                Read all blogs
               </Link>
             </div>
           </div>
@@ -179,17 +178,9 @@ export default async function HomePage() {
                 Stay in the margin.
               </h3>
               <p className="font-body text-cream-300 leading-relaxed">
-                New essays delivered to your inbox, not too often — just often
+                New blogs delivered to your inbox, not too often — just often
                 enough. No noise, no filler, only things worth reading.
               </p>
-            </div>
-            <div className="flex-shrink-0">
-              <Link
-                href="/blog"
-                className="btn-primary bg-cream-100 text-forest-800 hover:bg-cream-200 px-8 py-3"
-              >
-                Subscribe — it's free
-              </Link>
             </div>
           </div>
         </section>
