@@ -1,4 +1,13 @@
-export const POSTS_QUERY = `*[_type == "post" && defined(slug.current)][0...12]{
+export const POSTS_QUERY = `*[
+  _type == "post" &&
+  defined(slug.current) &&
+   (
+    $category == "" ||
+    $category in categories[]->slug.current
+  )
+]
+| order(publishedAt desc)
+[$start...$end]{
   _id,
   title,
   "slug": slug.current,

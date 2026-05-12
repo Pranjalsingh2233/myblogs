@@ -1,7 +1,7 @@
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
 import { client } from "@/sanity/lib/client";
-import { POSTS_QUERY } from "@/sanity/lib/queries";
+import { POSTS_QUERY, CATEGORIES_QUERY } from "@/sanity/lib/queries";
 
 export const metadata = {
   title: "All Essays — The Margin",
@@ -9,9 +9,16 @@ export const metadata = {
 };
 
 export default async function BlogPage({ searchParams }) {
-  // const selectedCategory = (await searchParams?.category);
+  const selectedCategory = (await searchParams).category || "";
+  const currentPage = (await searchParams).page || 1;
 
-  const posts = await client.fetch(POSTS_QUERY);
+  const categories = await client.fetch(CATEGORIES_QUERY);
+
+  const posts = await client.fetch(POSTS_QUERY, {
+    category: selectedCategory,
+    start: (currentPage - 1) * 9,
+    end: currentPage * 9,
+  });
 
   return (
     <>
@@ -43,6 +50,18 @@ export default async function BlogPage({ searchParams }) {
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
               <span className="font-sans text-xs text-ink-300 uppercase tracking-widest flex-shrink-0 mr-2">
                 Filter:
+              </span>
+              <span>
+                {categories.map((category) => (
+                  <a href={`?category=${category.slug}`}>
+                    <button
+                      key={category.slug}
+                      className="text-xs text-ink-300 uppercase tracking-widest hover:text-forest-500 transition-colors flex-shrink-0 mr-4 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full cursor-pointer"
+                    >
+                      {category.title}
+                    </button>
+                  </a>
+                ))}
               </span>
             </div>
           </div>
