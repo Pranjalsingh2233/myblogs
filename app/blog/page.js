@@ -1,7 +1,12 @@
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
 import { client } from "@/sanity/lib/client";
-import { POSTS_QUERY, CATEGORIES_QUERY } from "@/sanity/lib/queries";
+import {
+  POSTS_QUERY,
+  CATEGORIES_QUERY,
+  POSTS_COUNT_QUERY,
+} from "@/sanity/lib/queries";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 export const metadata = {
   title: "All Essays — The Margin",
@@ -18,6 +23,10 @@ export default async function BlogPage({ searchParams }) {
     category: selectedCategory,
     start: (currentPage - 1) * 9,
     end: currentPage * 9,
+  });
+
+  const totalPosts = await client.fetch(POSTS_COUNT_QUERY, {
+    category: selectedCategory,
   });
 
   return (
@@ -94,6 +103,21 @@ export default async function BlogPage({ searchParams }) {
               </div>
             </>
           )}
+          <nav class="inline-flex items-center p-1 rounded bg-white space-x-2">
+            <a
+              class="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
+              href="#"
+            >
+              <ChevronsLeft />
+            </a>
+            <p class="text-gray-500">Page 1 of 10</p>
+            <a
+              class="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
+              href="#"
+            >
+              <ChevronsRight />
+            </a>
+          </nav>
         </section>
 
         {/* ─── BOTTOM CTA ─── */}

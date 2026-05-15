@@ -39,3 +39,16 @@ export const CATEGORIES_QUERY = `*[_type == "category"]{
   title,
   "slug": slug.current
 }`;
+
+export const POSTS_COUNT_QUERY = `
+count(
+  *[
+    _type == "post" &&
+    defined(slug.current) &&
+    (
+      $category == "" ||
+      $category in categories[]->slug.current
+    )
+  ]
+)
+`;
