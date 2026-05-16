@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import BlogCard from "@/components/BlogCard";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
@@ -11,7 +10,11 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const posts = await client.fetch(POSTS_QUERY);
+  const posts = await client.fetch(POSTS_QUERY, {
+    category: "",
+    start: 0,
+    end: 3,
+  });
   const featuredBlog = posts[0];
   const gridBlogs = posts.slice(1);
 

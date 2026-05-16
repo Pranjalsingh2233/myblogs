@@ -14,8 +14,15 @@ export const metadata = {
 };
 
 export default async function BlogPage({ searchParams }) {
-  const selectedCategory = (await searchParams).category || "";
-  const currentPage = (await searchParams).page || 1;
+  let selectedCategory = (await searchParams).category || "";
+  let currentPage = (await searchParams).page || 1;
+  const totalPosts = await client.fetch(POSTS_COUNT_QUERY, {
+    category: selectedCategory,
+  });
+
+  if (currentPage < 1 || currentPage > Math.ceil(totalPosts / 9)) {
+    currentPage = 1;
+  }
 
   const categories = await client.fetch(CATEGORIES_QUERY);
 
@@ -23,10 +30,6 @@ export default async function BlogPage({ searchParams }) {
     category: selectedCategory,
     start: (currentPage - 1) * 9,
     end: currentPage * 9,
-  });
-
-  const totalPosts = await client.fetch(POSTS_COUNT_QUERY, {
-    category: selectedCategory,
   });
 
   return (
@@ -106,14 +109,16 @@ export default async function BlogPage({ searchParams }) {
           <nav class="inline-flex items-center p-1 rounded bg-white space-x-2">
             <a
               class="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
-              href="#"
+              href={`?page=${currentPage <= 1 ? 1 : currentPage - 1}`}
             >
               <ChevronsLeft />
             </a>
-            <p class="text-gray-500">Page 1 of 10</p>
+            <p class="text-gray-500">
+              Page {currentPage} of {Math.ceil(totalPosts / 9)}
+            </p>
             <a
               class="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
-              href="#"
+              href={`?page=${currentPage < Math.ceil(totalPosts / 9) ? currentPage + 1 : currentPage}`}
             >
               <ChevronsRight />
             </a>

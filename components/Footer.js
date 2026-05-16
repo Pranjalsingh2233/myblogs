@@ -1,4 +1,3 @@
-// components/Footer.js — Server Component
 import Link from "next/link";
 
 export default function Footer() {
@@ -9,19 +8,10 @@ export default function Footer() {
       label: "Navigate",
       links: [
         { href: "/", text: "Home" },
-        { href: "/blog", text: "All Essays" },
+        { href: "/blog", text: "Blogs" },
+        { href: "/contact", text: "Contact" },
       ],
-    },
-    {
-      label: "Topics",
-      links: [
-        { href: "/blog?category=Travel", text: "Travel" },
-        { href: "/blog?category=Design", text: "Design" },
-        { href: "/blog?category=Food", text: "Food" },
-        { href: "/blog?category=Culture", text: "Culture" },
-        { href: "/blog?category=Writing", text: "Writing" },
-      ],
-    },
+    }
   ];
 
   return (
@@ -32,12 +22,11 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <span className="font-display text-2xl font-bold text-cream-100">
-                The Margin
+                Blog World
               </span>
             </Link>
             <p className="font-body text-sm text-cream-300 leading-relaxed max-w-xs">
-              A journal for curious minds. Essays on travel, design, food,
-              culture, and the art of paying attention.
+             Your go-to destination for digital marketing insights, SEO strategies, content marketing tips, social media trends, and online business growth. We share practical guides, industry updates, and actionable techniques to help marketers, creators, and businesses grow online.
             </p>
             {/* Decorative rule */}
             <div className="mt-6 h-px w-16 bg-forest-500" />
@@ -68,7 +57,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-forest-700 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-sans text-xs text-forest-400">
-            © {year} The Margin. All rights reserved.
+            © {year} Blog World. All rights reserved.
           </p>
           <p className="font-sans text-xs text-forest-400 italic">
             Written slowly. Read at your own pace.

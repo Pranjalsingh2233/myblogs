@@ -18,63 +18,48 @@ export default function BlogCard({ blog, featured = false }) {
 
   if (featured) {
     return (
-      <article className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-cream-200 flex flex-col md:flex-row">
-        {/* Image */}
-        <div className="relative md:w-1/2 h-64 md:h-auto overflow-hidden flex-shrink-0">
-          <Image
-            src={image}
-            alt={alt}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-col justify-center p-8 md:p-10">
-          <div className="flex items-center gap-3 mb-4">
-            <span className={`tag-pill ${colorClass}`}>{category}</span>
-            <span className="font-sans text-xs text-ink-300">Featured</span>
+      <article class="py-8 px-4 mx-auto max-w-screen-xl h-screen lg:py-16 lg:px-6">
+        <div class="bg-white w-96 p-4 border-2 border-gray-300  shadow-lg rounded-xl">
+          <div>
+            <a href={`/blog/${slug}`}>
+              <Image
+                class="rounded-lg"
+                width={500}
+                height={500}
+                src={image}
+                alt={alt}
+              />
+            </a>
           </div>
-
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-ink-700 leading-tight mb-4 group-hover:text-forest-600 transition-colors text-balance">
-            {title}
-          </h2>
-
-          <p className="font-body text-ink-400 leading-relaxed mb-6 line-clamp-3">
-            {excerpt}
-          </p>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-forest-600 flex items-center justify-center flex-shrink-0">
-                <span className="font-sans text-xs font-bold text-cream-100">
-                  {author.charAt(0)}
-                </span>
+          <div class="capitalize text-purple-900 font-semibold my-4 bg-purple-200 w-fit px-3 rounded-lg">
+            <p>{category}</p>
+          </div>
+          <div class="text-2xl font-bold my-2">
+            <a href={`/blog/${slug}`}>
+              <h2>{title}</h2>
+            </a>
+          </div>
+          <div>
+            <p>{excerpt}</p>
+          </div>
+          <div class="flex items-cente">
+            <div class="mt-4">
+              <Image
+                width={100}
+                height={100}
+                class="w-12 h-12 object-cover rounded-full"
+                src={author.image}
+                alt="author"
+              />
+            </div>
+            <div class="block mt-3.5">
+              <div class="capitalize text-lg font-semibold pl-4 ">
+                <h3>{author.name}</h3>
               </div>
-              <div>
-                <p className="font-sans text-xs font-medium text-ink-600">
-                  {author}
-                </p>
-                <p className="font-sans text-xs text-ink-300">
-                  {formatDate(date)}
-                </p>
+              <div class="capitalize text-sm text-gray-600 pl-4">
+                <p>{formatDate(date)}</p>
               </div>
             </div>
-
-            <Link href={`/blog/${slug}`} className="btn-primary">
-              Read More
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
           </div>
         </div>
       </article>
@@ -82,74 +67,48 @@ export default function BlogCard({ blog, featured = false }) {
   }
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-cream-200 flex flex-col h-full">
-      {/* Image */}
-      <div className="relative h-52 overflow-hidden flex-shrink-0">
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
-        />
-        {/* Category overlay */}
-        <div className="absolute top-4 left-4">
-          <span
-            className={`tag-pill ${colorClass} backdrop-blur-sm bg-opacity-90`}
-          >
-            {category}
-          </span>
+    <article class="py-8 px-4 mx-auto max-w-screen-xl h-screen lg:py-16 lg:px-6">
+      <div class="bg-white w-96 p-4 border-2 border-gray-300  shadow-lg rounded-xl">
+        <div>
+          <a href={`/blog/${slug}`}>
+            <Image
+              class="rounded-lg"
+              width={500}
+              height={500}
+              src={image}
+              alt={alt}
+            />
+          </a>
         </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex flex-col flex-1 p-6">
-        {/* Meta */}
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-6 h-6 rounded-full bg-forest-600 flex items-center justify-center flex-shrink-0">
-            <span className="font-sans text-xs font-bold text-cream-100 leading-none">
-              {author.charAt(0)}
-            </span>
+        <div class="capitalize text-purple-900 font-semibold my-4 bg-purple-200 w-fit px-3 rounded-lg">
+          <p>{category}</p>
+        </div>
+        <div class="text-2xl font-bold my-2">
+          <a href={`/blog/${slug}`}>
+            <h2>{title}</h2>
+          </a>
+        </div>
+        <div>
+          <p>{excerpt}</p>
+        </div>
+        <div class="flex items-cente">
+          <div class="mt-4">
+            <Image
+              width={100}
+              height={100}
+              class="w-12 h-12 object-cover rounded-full"
+              src={author.image}
+              alt="author"
+            />
           </div>
-          <span className="font-sans text-xs text-ink-400">{author}</span>
-          <span className="text-ink-300">·</span>
-          <span className="font-sans text-xs text-ink-300">
-            {formatDate(date)}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="font-display text-xl font-bold text-ink-700 leading-tight mb-3 group-hover:text-forest-600 transition-colors text-balance">
-          {title}
-        </h3>
-
-        {/* Excerpt */}
-        <p className="font-body text-sm text-ink-400 leading-relaxed flex-1 line-clamp-3 mb-5">
-          {excerpt}
-        </p>
-
-        {/* Footer */}
-        <div className="pt-4 border-t border-cream-200">
-          <Link
-            href={`/blog/${slug}`}
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-medium text-forest-600 hover:text-forest-700 transition-colors group/link"
-          >
-            Read More
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="transform group-hover/link:translate-x-1 transition-transform"
-            >
-              <path
-                d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+          <div class="block mt-3.5">
+            <div class="capitalize text-lg font-semibold pl-4 ">
+              <h3>{author.name}</h3>
+            </div>
+            <div class="capitalize text-sm text-gray-600 pl-4">
+              <p>{formatDate(date)}</p>
+            </div>
+          </div>
         </div>
       </div>
     </article>
