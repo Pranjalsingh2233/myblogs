@@ -4,6 +4,8 @@ import { client } from "@/sanity/lib/client";
 import { POST_QUERY } from "@/sanity/lib/queries";
 import { components, formatDate } from "@/lib/helper";
 import { PortableText } from "@portabletext/react";
+import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -52,6 +54,21 @@ export default async function SingleBlog({ params }) {
 
   const featuredImage = post.image;
 
+  //For image rendering in portable text
+  const components = {
+    types: {
+      image: ({ value }) => (
+        <Image
+            width={800}
+            height={500}
+          src={urlFor(value).url()}
+          alt={value.alt || "Blog image"}
+          className="rounded-xl my-6"
+        />
+      ),
+    },
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-40 lg:flex gap-5">
       <div className="max-w-3xl mx-auto">
@@ -66,7 +83,9 @@ export default async function SingleBlog({ params }) {
         </div>
         {/* Featured Image */}
         {featuredImage && (
-          <img
+          <Image
+            width={500}
+            height={500}
             src={featuredImage}
             alt={post?.alt}
             className="w-full h-auto mb-8 rounded-lg"
