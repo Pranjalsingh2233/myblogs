@@ -18,7 +18,7 @@ export default function BlogCard({ blog, featured = false }) {
 
   if (featured) {
     return (
-      <article className="py-8 px-4 mx-auto max-w-screen-xl h-screen lg:py-16 lg:px-6">
+      <article className="py-8 px-4 mx-auto max-w-screen-xl lg:py-5 lg:px-6">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:shrink-0">
@@ -73,7 +73,7 @@ export default function BlogCard({ blog, featured = false }) {
   }
 
   return (
-    <article className="py-8 px-4 mx-auto max-w-screen-xl h-screen lg:py-16 lg:px-6">
+    <article className="py-8 px-4 mx-auto max-w-screen-xl lg:py-5 lg:px-6">
       <div className="bg-white w-96 p-4 border-2 border-gray-300  shadow-lg rounded-xl">
         <div>
           <a href={`/blog/${slug}`}>

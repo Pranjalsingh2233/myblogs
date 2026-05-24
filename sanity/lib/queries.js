@@ -20,6 +20,26 @@ export const POSTS_QUERY = `*[
   featured
 }`;
 
+export const FEATURED_POSTS_QUERY = `
+*[
+  _type == "post" &&
+  defined(slug.current) &&
+  featured == true
+]
+| order(publishedAt desc)[0...3]{
+  _id,
+  title,
+  "slug": slug.current,
+  "date": publishedAt,
+  "image": image.asset->url,
+  "alt": image.alt,
+  excerpt,
+  "categories": categories[]->title,
+  "author": author->name,
+  featured
+}
+`;
+
 export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   title,
   "slug": slug.current,

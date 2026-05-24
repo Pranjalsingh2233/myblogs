@@ -1,6 +1,6 @@
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
-import { POSTS_QUERY } from "@/sanity/lib/queries";
+import { POSTS_QUERY,FEATURED_POSTS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
 
 export const metadata = {
@@ -10,13 +10,13 @@ export const metadata = {
 };
 
 export default async function HomePage() {
+  const featuredPosts = await client.fetch(FEATURED_POSTS_QUERY);
+  console.log(featuredPosts);
   const posts = await client.fetch(POSTS_QUERY, {
     category: "",
     start: 0,
     end: 3,
   });
-  const featuredBlog = posts[0];
-  const gridBlogs = posts.slice(1);
 
   return (
     <>
@@ -32,7 +32,7 @@ export default async function HomePage() {
             }}
           />
 
-          <div className="container mx-auto px-6 max-w-7xl py-24 md:py-36 relative">
+          <div className="container mx-auto px-6 max-w-7xl py-20 md:py-20 relative">
             <div className="max-w-3xl">
               {/* Eyebrow */}
               <div className="flex items-center gap-3 mb-8">
@@ -62,7 +62,7 @@ export default async function HomePage() {
                   Explore all blogs
                 </Link>
                 <Link
-                  href={`/blog/${featuredBlog.slug}`}
+                  href={`/blog`}
                   className="inline-flex items-center gap-2 font-sans text-sm font-medium text-cream-300 hover:text-cream-100 transition-colors"
                 >
                   Read the latest
@@ -100,7 +100,7 @@ export default async function HomePage() {
         </section>
 
         {/* ─── FEATURED ESSAY ─── */}
-        <section className="container mx-auto px-6 max-w-7xl py-16 md:py-20">
+        <section className="container mx-auto px-6 max-w-7xl py-10 md:py-10">
           <div className="flex items-center justify-between mb-10">
             <div>
               <h2 className="font-display text-3xl font-bold text-ink-700">
@@ -127,7 +127,9 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <BlogCard blog={featuredBlog} featured={true} />
+          {featuredPosts.map((blog) => (
+            <BlogCard key={blog.slug} blog={blog} featured={true} />
+          ))}
         </section>
 
         {/* ─── LATEST POSTS GRID ─── */}
@@ -160,7 +162,7 @@ export default async function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {gridBlogs.map((blog) => (
+              {posts.map((blog) => (
                 <BlogCard key={blog.slug} blog={blog} />
               ))}
             </div>
