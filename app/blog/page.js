@@ -5,6 +5,7 @@ import {
   POSTS_QUERY,
   CATEGORIES_QUERY,
   POSTS_COUNT_QUERY,
+  FEATURED_POSTS_QUERY,
 } from "@/sanity/lib/queries";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
@@ -25,6 +26,7 @@ export default async function BlogPage({ searchParams }) {
   }
 
   const categories = await client.fetch(CATEGORIES_QUERY);
+  const featuredPosts = await client.fetch(FEATURED_POSTS_QUERY);
 
   const posts = await client.fetch(POSTS_QUERY, {
     category: selectedCategory,
@@ -92,15 +94,14 @@ export default async function BlogPage({ searchParams }) {
             </div>
           ) : (
             <>
-              {/* Featured first card (larger) */}
-              {posts.length > 0 && (
-                <div className="mb-8">
-                  <BlogCard blog={posts[0]} featured={true} />
-                </div>
-              )}
+              <div className="grid gap-x-8 gap-y-12 sm:gap-y-16 md:grid-cols-2 lg:grid-cols-3 mb-20">
+                {featuredPosts.map((blog) => (
+                  <BlogCard key={blog.slug} blog={blog} featured={true} />
+                ))}
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {posts.slice(1).map((blog) => (
+                {posts.map((blog) => (
                   <BlogCard key={blog.slug} blog={blog} />
                 ))}
               </div>

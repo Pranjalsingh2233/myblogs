@@ -1,6 +1,6 @@
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
-import { POSTS_QUERY,FEATURED_POSTS_QUERY } from "@/sanity/lib/queries";
+import { POSTS_QUERY, FEATURED_POSTS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
 
 export const metadata = {
@@ -11,7 +11,7 @@ export const metadata = {
 
 export default async function HomePage() {
   const featuredPosts = await client.fetch(FEATURED_POSTS_QUERY);
-  console.log(featuredPosts);
+  
   const posts = await client.fetch(POSTS_QUERY, {
     category: "",
     start: 0,
@@ -126,10 +126,11 @@ export default async function HomePage() {
               </svg>
             </Link>
           </div>
-
-          {featuredPosts.map((blog) => (
-            <BlogCard key={blog.slug} blog={blog} featured={true} />
-          ))}
+          <div className="grid gap-x-8 gap-y-12 sm:gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+            {featuredPosts.map((blog) => (
+              <BlogCard key={blog.slug} blog={blog} featured={true} />
+            ))}
+          </div>
         </section>
 
         {/* ─── LATEST POSTS GRID ─── */}
@@ -161,7 +162,7 @@ export default async function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid gap-x-8 gap-y-12 sm:gap-y-16 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((blog) => (
                 <BlogCard key={blog.slug} blog={blog} />
               ))}
