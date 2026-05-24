@@ -11,7 +11,7 @@ export const metadata = {
 
 export default async function HomePage() {
   const featuredPosts = await client.fetch(FEATURED_POSTS_QUERY);
-  
+
   const posts = await client.fetch(POSTS_QUERY, {
     category: "",
     start: 0,
@@ -81,20 +81,12 @@ export default async function HomePage() {
 
             {/* Stats row */}
             <div className="mt-16 pt-8 border-t border-forest-700 flex flex-wrap gap-8">
-              {[
-                { value: "6", label: "Essays published" },
-                { value: "5", label: "Topics covered" },
-                { value: "3", label: "Contributing writers" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-display text-3xl font-bold text-cream-100">
-                    {stat.value}
-                  </p>
-                  <p className="font-sans text-xs text-forest-300 mt-1 tracking-wide">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+              <div>
+                <p className="font-display text-2xl font-semibold text-cream-100">
+                  {posts.length} blog{posts.length !== 1 ? "s" : ""} . Take your
+                  time.
+                </p>
+              </div>
             </div>
           </div>
         </section>

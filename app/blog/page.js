@@ -66,8 +66,8 @@ export default async function BlogPage({ searchParams }) {
                 Filter:
               </span>
               <span>
-                {categories.map((category) => (
-                  <a href={`?category=${category.slug}`}>
+                {categories.map((category, index) => (
+                  <a href={`?category=${category.slug}`} key={index}>
                     <button
                       key={category.slug}
                       className="text-xs text-ink-300 uppercase tracking-widest hover:text-forest-500 transition-colors flex-shrink-0 mr-4 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full cursor-pointer"
@@ -107,18 +107,18 @@ export default async function BlogPage({ searchParams }) {
               </div>
             </>
           )}
-          <nav class="inline-flex items-center p-1 rounded bg-white space-x-2">
+          <nav className="inline-flex items-center p-1 rounded bg-white space-x-2">
             <a
-              class="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
+              className="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
               href={`?page=${currentPage <= 1 ? 1 : currentPage - 1}`}
             >
               <ChevronsLeft />
             </a>
-            <p class="text-gray-500">
+            <p className="text-gray-500">
               Page {currentPage} of {Math.ceil(totalPosts / 9)}
             </p>
             <a
-              class="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
+              className="p-1 rounded border text-black bg-white hover:text-white hover:bg-blue-600 hover:border-blue-600"
               href={`?page=${currentPage < Math.ceil(totalPosts / 9) ? currentPage + 1 : currentPage}`}
             >
               <ChevronsRight />
