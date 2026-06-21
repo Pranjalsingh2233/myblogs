@@ -72,3 +72,12 @@ count(
   ]
 )
 `;
+
+export const POSTS_SLUG_QUERY = `*[
+  _type == "post" &&
+  defined(slug.current)
+]{
+  _id,
+  "slug": slug.current,
+  "date": publishedAt,
+}`;

@@ -31,7 +31,7 @@ export default function Navbar() {
               </svg>
             </span>
             <span className="font-display font-bold text-xl text-ink-700 group-hover:text-forest-600 transition-colors">
-              Blog World
+              SearchNextEra
             </span>
           </Link>
 
